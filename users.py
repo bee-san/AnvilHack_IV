@@ -13,6 +13,9 @@ def get_user(phone):
 
     return Users[phone]
 
+def get_random_user():
+    return random.choice(Users)
+
 def update_points(phone, delta):
     usr = get_user(phone)
     usr['points'] += delta
