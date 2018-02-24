@@ -40,6 +40,7 @@ def sms_get_body():
     from = request.values.get("From", None)
     resp.message("Hello, you said {}".format(body))
 
+
     return str(resp)
 
 
