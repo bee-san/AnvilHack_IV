@@ -1,6 +1,6 @@
 import random
 
-Users = []
+Users = {}
 
 def get_user(phone):
     # Initialize this user if they're new to the system
@@ -13,8 +13,11 @@ def get_user(phone):
 
     return Users[phone]
 
+def get_random_user_number():
+    return random.choice(Users.keys())
+
 def get_random_user():
-    return random.choice(Users)
+    return Users[get_random_user_number()]
 
 def update_points(phone, delta):
     usr = get_user(phone)
