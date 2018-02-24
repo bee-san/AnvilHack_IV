@@ -1,7 +1,11 @@
 from twilio.rest import Client
 from twilio.twiml.messaging_response import Body, Message, Redirect, MessagingResponse
-
-
+import threading
+from threading import Thread
+from time import sleep
+from random import randint
+# local libraries
+import questions, users
 
 account = "ACf6ddb664419f225eb09901d32dbfc5c9"
 token = "345335f019dfac112d93292888a4ca5f"
@@ -16,6 +20,8 @@ app = Flask(__name__)
 
 client = Client(account, token)
 
+global asked_question = False
+
 def send_message(message, send_to_num, from_num="+441618502075"):
     """ function to send "message" to "send_to_num" from default num, "from_num" """
     client.api.account.messages.create(
@@ -29,6 +35,14 @@ def sms_get_body_define(message)
     """ simple function to determine what was in the body """
 
     return None
+
+def flashcard_loop():
+    while True:
+        if randint(0, 15) == 15:
+            question = questions.get_random_question()
+            send_message(question, )
+        else:
+            sleep(1)
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_get_body():
@@ -45,4 +59,5 @@ def sms_get_body():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    Thread(target = flashcard_loop).start()
+    Thread(target = app.run(debug=True)).start()

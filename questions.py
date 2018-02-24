@@ -1,3 +1,4 @@
+import random
 Questions = [
     {
         'text': 'This is a question. The answer is b',
