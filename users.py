@@ -13,7 +13,7 @@ def get_user(phone):
     return Users[phone]
 
 def get_random_user_number():
-    return random.choice(Users.keys())
+    return random.choice(list(Users.keys()))
 
 def get_random_user():
     return Users[get_random_user_number()]
