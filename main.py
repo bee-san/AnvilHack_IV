@@ -41,12 +41,14 @@ def sms_get_body_define(message):
 
 def flashcard_loop():
     while True:
+        print("this is working")
         if randint(0, 15) == 15:
+            print("A MESSAGE HAS SENT*********************")
             global question
             global user
             question = questions.get_random_question()
-            user = users.get_random_users()
-            asked_question = false
+            user = users.get_random_user_number()
+            asked_question = False
             send_message(question, user)
         else:
             sleep(1)
@@ -58,7 +60,7 @@ def sms_get_body():
     resp = MessagingResponse()
 
     body = request.values.get('Body', None)
-    from = request.values.get("From", None)
+    froma = request.values.get('From', None)
 
     if asked_question:
         answered = false
@@ -72,7 +74,6 @@ def sms_get_body():
     asked_question = False
     user = ""
     body = ""
-    from = ""
     question = ""
     return str(resp)
 

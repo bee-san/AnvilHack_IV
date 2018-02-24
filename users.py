@@ -1,5 +1,4 @@
 import random
-
 Users = {}
 
 def get_user(phone):
@@ -24,3 +23,6 @@ def update_points(phone, delta):
     usr['points'] += delta
 
     return usr
+
+get_user('+447534003420')
+get_user('+4915123016551')
