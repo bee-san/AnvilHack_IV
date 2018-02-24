@@ -20,18 +20,21 @@ app = Flask(__name__)
 
 client = Client(account, token)
 
-global asked_question = False
+# global variables
+asked_question = False
+question = ""
+user = ""
 
 def send_message(message, send_to_num, from_num="+441618502075"):
     """ function to send "message" to "send_to_num" from default num, "from_num" """
     client.api.account.messages.create(
     to = send_to_num,
-    from_ = from_num,
+    from_n = from_num,
     body=message)
     # internal confirmation
     print("Message {} sent to {} from {}",format(message, from_num, send_to_num))
 
-def sms_get_body_define(message)
+def sms_get_body_define(message):
     """ simple function to determine what was in the body """
 
     return None
@@ -39,8 +42,12 @@ def sms_get_body_define(message)
 def flashcard_loop():
     while True:
         if randint(0, 15) == 15:
+            global question
+            global user
             question = questions.get_random_question()
-            send_message(question, )
+            user = users.get_random_users()
+            asked_question = false
+            send_message(question, user)
         else:
             sleep(1)
 
@@ -52,11 +59,22 @@ def sms_get_body():
 
     body = request.values.get('Body', None)
     from = request.values.get("From", None)
-    resp.message("Hello, you said {}".format(body))
 
-
+    if asked_question:
+        answered = false
+        while answered != false:
+            if body == question['correctAnswer']:
+                send_message("You got it right!", user)
+                answered = true
+            else:
+                send_message("You got that one wrong... Try again!", user)
+    
+    asked_question = False
+    user = ""
+    body = ""
+    from = ""
+    question = ""
     return str(resp)
-
 
 if __name__ == "__main__":
     Thread(target = flashcard_loop).start()
