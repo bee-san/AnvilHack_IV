@@ -29,10 +29,10 @@ def send_message(message, send_to_num, from_num="+441618502075"):
     """ function to send "message" to "send_to_num" from default num, "from_num" """
     client.api.account.messages.create(
     to = send_to_num,
-    from_n = from_num,
+    from_ = from_num,
     body=message)
     # internal confirmation
-    print("Message {} sent to {} from {}",format(message, from_num, send_to_num))
+    print("Message {} sent to {} from {}".format(message, from_num, send_to_num))
 
 def sms_get_body_define(message):
     """ simple function to determine what was in the body """
@@ -42,40 +42,48 @@ def sms_get_body_define(message):
 def flashcard_loop():
     while True:
         print("this is working")
-        if randint(0, 15) == 15:
+        if 15 == 15:
             print("A MESSAGE HAS SENT*********************")
             global question
             global user
             question = questions.get_random_question()
             user = users.get_random_user_number()
             asked_question = False
-            send_message(question, user)
+            send_message(question['text'], user)
+            sleep(500000)
         else:
-            sleep(1)
+            sleep(50000000)
 
-@app.route("/sms", methods=['GET', 'POST'])
+@app.route("/inbound", methods=['GET', 'POST'])
 def sms_get_body():
     """Respond to incoming calls with a simple text message."""
     # Start our TwiML response
     resp = MessagingResponse()
 
+    global asked_question
+    global question
+    global user
+
     body = request.values.get('Body', None)
     froma = request.values.get('From', None)
-
+    body2 = request.form['Body']
+    print(body2)
+    print(body)
+    print(froma)
+    print(asked_question)
+    print(question['correctAnswer'])
     if asked_question:
-        answered = false
-        while answered != false:
-            if body == question['correctAnswer']:
-                send_message("You got it right!", user)
-                answered = true
-            else:
-                send_message("You got that one wrong... Try again!", user)
-    
-    asked_question = False
-    user = ""
-    body = ""
-    question = ""
+        if body == question['correctAnswer'].lower():
+            resp.message("You got it right, well done!")
+            asked_question = False
+        else:
+            resp.message("You got it wrong :(")
+    else:
+        resp.message("Continue as normal, human.")
+
     return str(resp)
+
+
 
 if __name__ == "__main__":
     Thread(target = flashcard_loop).start()

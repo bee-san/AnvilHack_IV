@@ -25,4 +25,4 @@ def update_points(phone, delta):
     return usr
 
 get_user('+447534003420')
-get_user('+4915123016551')
+#get_user('+4915123016551')
