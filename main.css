@@ -1,0 +1,92 @@
+html {
+    background-color: ghostwhite;
+}
+
+h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 100px;
+}
+
+nav {
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+    padding-bottom: 50px;
+    
+}
+
+body {
+    text-align: center;
+}
+
+#tableContainer-1 {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+
+#tableContainer-2 {
+    vertical-align: middle;
+    display: table-cell;
+    height: 100%;
+}
+
+ #myTable {
+    margin: 0 auto;
+}
+
+/*********** Button styling ************/
+ /* unvisited link */
+ a:link {
+    color: black;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+    color: darkslategrey;
+}
+
+/* selected link */
+a:active {
+    color: black;
+    text-decoration: underline;
+}
+
+/************ Table *************/
+table {  
+    color: #333; /* Lighten up font color */
+    font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+    width: 640px; 
+    border-collapse: collapse; 
+    border-spacing: 0; 
+    
+}
+
+td, th { border: 1px solid #CCC; height: 30px; } /* Make cells a bit taller */
+
+th {  
+    background: #F3F3F3; /* Light grey background */
+    font-weight: bold; /* Make sure they're bold */
+}
+
+td {  
+    background: #FAFAFA; /* Lighter grey background */
+    text-align: center; /* Center our text */
+}
+
+
+/************** Element IDs ************/
+
+#center {
+    text-align: center;
+    vertical-align: 50%;
+}
+
+#maintitle {
+    height: 400px;
+}
